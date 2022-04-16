@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>1 Scratch | Markov chains</title>
+<meta name="author" content="Fernando Náufel">
+<meta name="description" content="1.1 markovchain package URL: https://cran.r-project.org/web/packages/markovchain/index.html https://spedygiorgio.github.io/markovchain/ Articles: Introduction (pdf) GSOC additions (pdf) Higher...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="1 Scratch | Markov chains">
+<meta property="og:type" content="book">
+<meta property="og:description" content="1.1 markovchain package URL: https://cran.r-project.org/web/packages/markovchain/index.html https://spedygiorgio.github.io/markovchain/ Articles: Introduction (pdf) GSOC additions (pdf) Higher...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1 Scratch | Markov chains">
+<meta name="twitter:description" content="1.1 markovchain package URL: https://cran.r-project.org/web/packages/markovchain/index.html https://spedygiorgio.github.io/markovchain/ Articles: Introduction (pdf) GSOC additions (pdf) Higher...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lexend-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_JetBrains%20Mono-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Roboto-0.4.1/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script><script src="html_files/alterar_detalhes.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="html_files/styles_all.css">
+<link rel="stylesheet" href="html_files/styles_book.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Markov chains</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Intro</a></li>
+<li><a class="active" href="scratch.html"><span class="header-section-number">1</span> Scratch</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/fnaufel/markovchains">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="scratch" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1</span> Scratch<a class="anchor" aria-label="anchor" href="#scratch"><i class="fas fa-link"></i></a>
+</h1>
+<div id="markovchain-package" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> <code>markovchain</code> package<a class="anchor" aria-label="anchor" href="#markovchain-package"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p>URL: <a href="https://cran.r-project.org/web/packages/markovchain/index.html" class="uri">https://cran.r-project.org/web/packages/markovchain/index.html</a></p></li>
+<li><p><a href="https://spedygiorgio.github.io/markovchain/" class="uri">https://spedygiorgio.github.io/markovchain/</a></p></li>
+<li>
+<p>Articles:</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/web/packages/markovchain/vignettes/an_introduction_to_markovchain_package.pdf">Introduction (pdf)</a></p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/markovchain/vignettes/gsoc_2017_additions.pdf">GSOC additions (pdf)</a></p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/markovchain/vignettes/higher_order_markov_chains.pdf">Higher order MC (pdf)</a></p></li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/spedygiorgio/markovchain/">markovchain</a></span><span class="op">)</span></code></pre></div>
+<pre><code>## Package:  markovchain
+## Version:  0.8.6
+## Date:     2021-05-17
+## BugReport: https://github.com/spedygiorgio/markovchain/issues</code></pre>
+</div>
+<div id="a-mc-for-brazilian-portuguese" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> A MC for Brazilian Portuguese<a class="anchor" aria-label="anchor" href="#a-mc-for-brazilian-portuguese"><i class="fas fa-link"></i></a>
+</h2>
+<div id="read-and-prepare-words" class="section level3" number="1.2.1">
+<h3>
+<span class="header-section-number">1.2.1</span> Read and prepare words<a class="anchor" aria-label="anchor" href="#read-and-prepare-words"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">words</span> <span class="op">&lt;-</span> <span class="fu">read_lines</span><span class="op">(</span><span class="st">'/usr/share/dict/brazilian'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">str_to_lower</span><span class="op">(</span><span class="st">'pt-br'</span><span class="op">)</span></code></pre></div>
+<p>A data frame, for easy search:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>word <span class="op">=</span> <span class="va">words</span><span class="op">)</span></code></pre></div>
+<p>Characters that will be used to mark beginning and end are safe:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span>
+    <span class="fu">str_detect</span><span class="op">(</span><span class="va">word</span>, <span class="st">'\\^'</span><span class="op">)</span> <span class="op">||</span>
+    <span class="fu">str_detect</span><span class="op">(</span><span class="va">word</span>, <span class="st">'\\$'</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]}],"data":[],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>A list of character vectors, with added ‘^’ at the beginning and added double ‘$’ at the end of each:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">words_to_vectors</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">alist</span><span class="op">)</span> <span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'^'</span>, <span class="va">alist</span>, <span class="st">'$$'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="st">''</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">chars</span> <span class="op">&lt;-</span> <span class="va">words</span> <span class="op">%&gt;%</span> <span class="fu">words_to_vectors</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>For a handful of words:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">some_words</span> <span class="op">&lt;-</span> <span class="va">chars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">chars</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span><span class="op">]</span>
+<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/markovchain/man/markovchainFit.html">markovchainFit</a></span><span class="op">(</span><span class="va">some_words</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">some_words</span> <span class="op">%&gt;%</span> 
+  <span class="fu">map_chr</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">.</span>, collapse <span class="op">=</span> <span class="st">''</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1] "^arpoarmo$$"        "^arquitetaríamos$$" "^desencadeante$$"  
+##  [4] "^devorava$$"        "^empolareis$$"      "^enceraria$$"      
+##  [7] "^engorduro$$"       "^ponderemo$$"       "^reinstalaríamos$$"
+## [10] "^requeimáreis$$"</code></pre>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fit</span><span class="op">$</span><span class="va">estimate</span></code></pre></div>
+<pre><code>## MLE Fit 
+##  A  21 - dimensional discrete Markov Chain defined by the following states: 
+##  $, ^, a, c, d, e, g, i, l, m, n, o, p, q, r, s, t, u, v, á, í 
+##  The transition matrix  (by rows)  is defined as follows: 
+##            $ ^          a         c          d         e          g          i     l
+## $ 0,83333333 0 0,00000000 0,0000000 0,00000000 0,0000000 0,08333333 0,00000000 0,000
+## ^ 0,00000000 0 0,11111111 0,0000000 0,22222222 0,3333333 0,11111111 0,00000000 0,000
+## a 0,16666667 0 0,00000000 0,1666667 0,08333333 0,0000000 0,00000000 0,00000000 0,000
+## c 0,00000000 0 0,50000000 0,0000000 0,00000000 0,2500000 0,00000000 0,00000000 0,250
+## d 0,00000000 0 0,00000000 0,0000000 0,00000000 0,6666667 0,00000000 0,00000000 0,000
+## e 0,07142857 0 0,07142857 0,0000000 0,00000000 0,0000000 0,00000000 0,07142857 0,000
+## g 0,00000000 0 0,00000000 0,0000000 0,00000000 0,0000000 0,00000000 0,00000000 0,000
+## i 0,00000000 0 0,50000000 0,0000000 0,00000000 0,0000000 0,00000000 0,00000000 0,000
+## l 0,00000000 0 1,00000000 0,0000000 0,00000000 0,0000000 0,00000000 0,00000000 0,000
+## m 0,00000000 0 0,00000000 0,0000000 0,00000000 0,0000000 0,00000000 0,00000000 0,000
+## n 0,00000000 0 0,12500000 0,2500000 0,12500000 0,0000000 0,12500000 0,00000000 0,125
+## o 0,30000000 0 0,10000000 0,0000000 0,00000000 0,0000000 0,00000000 0,00000000 0,100
+## p 0,00000000 0 0,00000000 0,0000000 0,00000000 0,0000000 0,00000000 0,50000000 0,000
+## q 0,00000000 0 0,00000000 0,0000000 0,00000000 0,0000000 0,00000000 0,00000000 0,000
+## r 0,00000000 0 0,22222222 0,0000000 0,11111111 0,2222222 0,00000000 0,11111111 0,000
+## s 0,57142857 0 0,00000000 0,0000000 0,00000000 0,1428571 0,00000000 0,00000000 0,000
+## t 0,00000000 0 0,00000000 0,0000000 0,00000000 0,2000000 0,00000000 0,00000000 0,000
+## u 0,00000000 0 0,00000000 0,0000000 0,00000000 0,0000000 0,00000000 0,00000000 0,000
+## v 0,00000000 0 0,60000000 0,0000000 0,00000000 0,0000000 0,00000000 0,00000000 0,000
+## á 0,00000000 0 0,00000000 0,0000000 0,00000000 1,0000000 0,00000000 0,00000000 0,000
+## í 0,00000000 0 0,00000000 0,0000000 0,00000000 0,0000000 0,00000000 0,00000000 0,000
+##           m          n         o         p   q         r          s         t
+## $ 0,0000000 0,00000000 0,0000000 0,0000000 0,0 0,0000000 0,00000000 0,0000000
+## ^ 0,0000000 0,00000000 0,0000000 0,1111111 0,0 0,0000000 0,00000000 0,1111111
+## a 0,0000000 0,08333333 0,0000000 0,0000000 0,0 0,3333333 0,00000000 0,0000000
+## c 0,0000000 0,00000000 0,0000000 0,0000000 0,0 0,0000000 0,00000000 0,0000000
+## d 0,0000000 0,00000000 0,0000000 0,0000000 0,0 0,0000000 0,00000000 0,1666667
+## e 0,1428571 0,21428571 0,0000000 0,0000000 0,0 0,1428571 0,07142857 0,1428571
+## g 0,0000000 0,00000000 0,5000000 0,0000000 0,0 0,5000000 0,00000000 0,0000000
+## i 0,0000000 0,00000000 0,0000000 0,0000000 0,0 0,0000000 0,50000000 0,0000000
+## l 0,0000000 0,00000000 0,0000000 0,0000000 0,0 0,0000000 0,00000000 0,0000000
+## m 0,0000000 0,00000000 0,4000000 0,2000000 0,0 0,0000000 0,00000000 0,0000000
+## n 0,0000000 0,00000000 0,0000000 0,0000000 0,0 0,0000000 0,00000000 0,1250000
+## o 0,2000000 0,10000000 0,0000000 0,0000000 0,0 0,2000000 0,00000000 0,0000000
+## p 0,0000000 0,00000000 0,5000000 0,0000000 0,0 0,0000000 0,00000000 0,0000000
+## q 0,0000000 0,00000000 0,0000000 0,0000000 0,0 0,0000000 1,00000000 0,0000000
+## r 0,1111111 0,00000000 0,1111111 0,1111111 0,0 0,0000000 0,00000000 0,0000000
+## s 0,0000000 0,00000000 0,0000000 0,0000000 0,0 0,2857143 0,00000000 0,0000000
+## t 0,2000000 0,00000000 0,0000000 0,0000000 0,0 0,6000000 0,00000000 0,0000000
+## u 0,0000000 0,50000000 0,0000000 0,0000000 0,0 0,5000000 0,00000000 0,0000000
+## v 0,0000000 0,00000000 0,2000000 0,0000000 0,2 0,0000000 0,00000000 0,0000000
+## á 0,0000000 0,00000000 0,0000000 0,0000000 0,0 0,0000000 0,00000000 0,0000000
+## í 0,0000000 0,00000000 1,0000000 0,0000000 0,0 0,0000000 0,00000000 0,0000000
+##            u          v á í
+## $ 0,08333333 0,00000000 0 0
+## ^ 0,00000000 0,00000000 0 0
+## a 0,08333333 0,08333333 0 0
+## c 0,00000000 0,00000000 0 0
+## d 0,16666667 0,00000000 0 0
+## e 0,00000000 0,07142857 0 0
+## g 0,00000000 0,00000000 0 0
+## i 0,00000000 0,00000000 0 0
+## l 0,00000000 0,00000000 0 0
+## m 0,00000000 0,40000000 0 0
+## n 0,12500000 0,00000000 0 0
+## o 0,00000000 0,00000000 0 0
+## p 0,00000000 0,00000000 0 0
+## q 0,00000000 0,00000000 0 0
+## r 0,00000000 0,00000000 0 0
+## s 0,00000000 0,00000000 0 0
+## t 0,00000000 0,00000000 0 0
+## u 0,00000000 0,00000000 0 0
+## v 0,00000000 0,00000000 0 0
+## á 0,00000000 0,00000000 0 0
+## í 0,00000000 0,00000000 0 0</code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/markovchain/man/markovchainFit.html">createSequenceMatrix</a></span><span class="op">(</span><span class="va">some_words</span>, toRowProbs <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<pre><code>##    $ ^ a c d e g i l m n o p q r s t u v á í
+## $ 10 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0
+## ^  0 0 1 0 2 3 1 0 0 0 0 0 1 0 0 0 1 0 0 0 0
+## a  2 0 0 2 1 0 0 0 0 0 1 0 0 0 4 0 0 1 1 0 0
+## c  0 0 2 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0
+## d  0 0 0 0 0 4 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0
+## e  1 0 1 0 0 0 0 1 0 2 3 0 0 0 2 1 2 0 1 0 0
+## g  0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0
+## i  0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+## l  0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## m  0 0 0 0 0 0 0 0 0 0 0 2 1 0 0 0 0 0 2 0 0
+## n  0 0 1 2 1 0 1 0 1 0 0 0 0 0 0 0 1 1 0 0 0
+## o  3 0 1 0 0 0 0 0 1 2 1 0 0 0 2 0 0 0 0 0 0
+## p  0 0 0 0 0 0 0 3 0 0 0 3 0 0 0 0 0 0 0 0 0
+## q  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+## r  0 0 2 0 1 2 0 1 0 1 0 1 1 0 0 0 0 0 0 0 0
+## s  4 0 0 0 0 1 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0
+## t  0 0 0 0 0 1 0 0 0 1 0 0 0 0 3 0 0 0 0 0 0
+## u  0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0
+## v  0 0 3 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0
+## á  0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## í  0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0</code></pre>
+<div class="rmdcaution">
+<p>It seems accented characters wreak havoc with estimation. See below.</p>
+<p>I could</p>
+<ul>
+<li><p>Code accented characters with two characters: e.g., ‘u`’.</p></li>
+<li><p>Look into locale configurations.</p></li>
+</ul>
+</div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sequences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"a"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"a"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">sequences</span></code></pre></div>
+<pre><code>## $x
+## [1] "a" "b" "a"
+## 
+## $y
+## [1] "b" "a" "b" "a" "c"</code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/markovchain/man/markovchainFit.html">createSequenceMatrix</a></span><span class="op">(</span><span class="va">sequences</span><span class="op">)</span></code></pre></div>
+<pre><code>##   a b c
+## a 0 2 1
+## b 3 0 0
+## c 0 0 0</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sequences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"á"</span>, <span class="st">"b"</span>, <span class="st">"á"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"á"</span>, <span class="st">"b"</span>, <span class="st">"á"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">sequences</span></code></pre></div>
+<pre><code>## $x
+## [1] "á" "b" "á"
+## 
+## $y
+## [1] "b" "á" "b" "á" "c"</code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/markovchain/man/markovchainFit.html">createSequenceMatrix</a></span><span class="op">(</span><span class="va">sequences</span><span class="op">)</span></code></pre></div>
+<pre><code>##   b c á
+## b 0 2 0
+## c 0 0 1
+## á 0 0 0</code></pre>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sequences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a'"</span>, <span class="st">"b"</span>, <span class="st">"a'"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"a'"</span>, <span class="st">"b"</span>, <span class="st">"a'"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">sequences</span></code></pre></div>
+<pre><code>## $x
+## [1] "a'" "b"  "a'"
+## 
+## $y
+## [1] "b"  "a'" "b"  "a'" "c"</code></pre>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/markovchain/man/markovchainFit.html">createSequenceMatrix</a></span><span class="op">(</span><span class="va">sequences</span><span class="op">)</span></code></pre></div>
+<pre><code>##    a' b c
+## a'  0 2 1
+## b   3 0 0
+## c   0 0 0</code></pre>
+</div>
+<div id="locale" class="section level3" number="1.2.2">
+<h3>
+<span class="header-section-number">1.2.2</span> Locale<a class="anchor" aria-label="anchor" href="#locale"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/platform_info.html">platform_info</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>##  setting  value
+##  version  R version 4.1.3 (2022-03-10)
+##  os       Ubuntu 20.04.4 LTS
+##  system   x86_64, linux-gnu
+##  ui       X11
+##  language en_US:en
+##  collate  pt_BR.UTF-8
+##  ctype    pt_BR.UTF-8
+##  tz       America/Sao_Paulo
+##  date     2022-04-16
+##  pandoc   2.17.1.1 @ /usr/lib/rstudio/bin/quarto/bin/ (via rmarkdown)</code></pre>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/locales.html">Sys.getlocale</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "LC_CTYPE=pt_BR.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=pt_BR.UTF-8;LC_MONETARY=pt_BR.UTF-8;LC_MESSAGES=en_US.UTF-8;LC_PAPER=pt_BR.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=pt_BR.UTF-8;LC_IDENTIFICATION=C"</code></pre>
+<div class="rmdnote">
+<p>Changing the locale did not work.</p>
+<p>Decided to preprocess the file with awk.</p>
+</div>
+</div>
+<div id="preprocessing-with-awk" class="section level3" number="1.2.3">
+<h3>
+<span class="header-section-number">1.2.3</span> Preprocessing with awk<a class="anchor" aria-label="anchor" href="#preprocessing-with-awk"><i class="fas fa-link"></i></a>
+</h3>
+<p>This will read the dictionary and produce an R script to build a list:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode awk"><code class="sourceCode awk"><span id="cb30-1"><a href="scratch.html#cb30-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-2"><a href="scratch.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span> <span class="op">{</span> <span class="kw">print</span><span class="op">(</span><span class="st">"wordlist &lt;- list("</span><span class="op">)</span> <span class="op">&gt;</span> <span class="st">"wordlist.R"</span> <span class="op">}</span></span>
+<span id="cb30-3"><a href="scratch.html#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="scratch.html#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb30-5"><a href="scratch.html#cb30-5" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"á"</span>] <span class="op">=</span> <span class="st">"a´"</span> </span>
+<span id="cb30-6"><a href="scratch.html#cb30-6" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"à"</span>] <span class="op">=</span> <span class="st">"a`"</span> </span>
+<span id="cb30-7"><a href="scratch.html#cb30-7" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"â"</span>] <span class="op">=</span> <span class="st">"a^"</span> </span>
+<span id="cb30-8"><a href="scratch.html#cb30-8" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"ã"</span>] <span class="op">=</span> <span class="st">"a~"</span> </span>
+<span id="cb30-9"><a href="scratch.html#cb30-9" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"ç"</span>] <span class="op">=</span> <span class="st">"c,"</span> </span>
+<span id="cb30-10"><a href="scratch.html#cb30-10" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"é"</span>] <span class="op">=</span> <span class="st">"e´"</span> </span>
+<span id="cb30-11"><a href="scratch.html#cb30-11" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"ê"</span>] <span class="op">=</span> <span class="st">"e^"</span> </span>
+<span id="cb30-12"><a href="scratch.html#cb30-12" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"í"</span>] <span class="op">=</span> <span class="st">"i´"</span> </span>
+<span id="cb30-13"><a href="scratch.html#cb30-13" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"ó"</span>] <span class="op">=</span> <span class="st">"o´"</span> </span>
+<span id="cb30-14"><a href="scratch.html#cb30-14" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"ô"</span>] <span class="op">=</span> <span class="st">"o^"</span> </span>
+<span id="cb30-15"><a href="scratch.html#cb30-15" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"õ"</span>] <span class="op">=</span> <span class="st">"o~"</span> </span>
+<span id="cb30-16"><a href="scratch.html#cb30-16" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"ú"</span>] <span class="op">=</span> <span class="st">"u´"</span> </span>
+<span id="cb30-17"><a href="scratch.html#cb30-17" aria-hidden="true" tabindex="-1"></a>    accented[<span class="st">"ü"</span>] <span class="op">=</span> <span class="st">"u:"</span> </span>
+<span id="cb30-18"><a href="scratch.html#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="scratch.html#cb30-19" aria-hidden="true" tabindex="-1"></a>    word <span class="op">=</span> <span class="fu">tolower</span><span class="op">(</span><span class="dt">$0</span><span class="op">)</span></span>
+<span id="cb30-20"><a href="scratch.html#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-21"><a href="scratch.html#cb30-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Split the word into array of chars</span></span>
+<span id="cb30-22"><a href="scratch.html#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">split</span><span class="op">(</span>word<span class="op">,</span> vector<span class="op">,</span> <span class="st">""</span><span class="op">)</span></span>
+<span id="cb30-23"><a href="scratch.html#cb30-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-24"><a href="scratch.html#cb30-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace accented chars</span></span>
+<span id="cb30-25"><a href="scratch.html#cb30-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> vector<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb30-26"><a href="scratch.html#cb30-26" aria-hidden="true" tabindex="-1"></a>        new <span class="op">=</span> accented[vector[i]]</span>
+<span id="cb30-27"><a href="scratch.html#cb30-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>new <span class="op">!=</span> <span class="st">""</span><span class="op">)</span></span>
+<span id="cb30-28"><a href="scratch.html#cb30-28" aria-hidden="true" tabindex="-1"></a>            vector[i] <span class="op">=</span> new</span>
+<span id="cb30-29"><a href="scratch.html#cb30-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb30-30"><a href="scratch.html#cb30-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-31"><a href="scratch.html#cb30-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Output vector in R notation</span></span>
+<span id="cb30-32"><a href="scratch.html#cb30-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">printf</span><span class="op">(</span><span class="st">"  c('^', "</span><span class="op">)</span> <span class="op">&gt;</span> <span class="st">"wordlist.R"</span> </span>
+<span id="cb30-33"><a href="scratch.html#cb30-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> vector<span class="op">)</span> <span class="kw">printf</span><span class="op">(</span><span class="st">"'%s', "</span><span class="op">,</span> vector[i]<span class="op">)</span> <span class="op">&gt;</span> <span class="st">"wordlist.R"</span> </span>
+<span id="cb30-34"><a href="scratch.html#cb30-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">printf</span><span class="op">(</span><span class="st">"'$', '$'),</span><span class="sc">\n</span><span class="st">"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="st">"wordlist.R"</span> </span>
+<span id="cb30-35"><a href="scratch.html#cb30-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb30-36"><a href="scratch.html#cb30-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-37"><a href="scratch.html#cb30-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert this NA just because of the last comma above,</span></span>
+<span id="cb30-38"><a href="scratch.html#cb30-38" aria-hidden="true" tabindex="-1"></a><span class="co"># then remove it</span></span>
+<span id="cb30-39"><a href="scratch.html#cb30-39" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span> <span class="op">{</span></span>
+<span id="cb30-40"><a href="scratch.html#cb30-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">print</span><span class="op">(</span><span class="st">"  NA</span><span class="sc">\n</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="st">"wordlist.R"</span> </span>
+<span id="cb30-41"><a href="scratch.html#cb30-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">print</span><span class="op">(</span><span class="st">"wordlist &lt;- wordlist[-length(wordlist)]"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="st">"wordlist.R"</span> </span>
+<span id="cb30-42"><a href="scratch.html#cb30-42" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>This will source the R script:</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'wordlist.R'</span><span class="op">)</span></code></pre></div>
+<p>Here are the first elements of the <code>wordlist</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">wordlist</span><span class="op">)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] "^"  "a"  "a"  "r"  "a~" "o"  "$"  "$" 
+## 
+## [[2]]
+## [1] "^" "a" "b" "a" "d" "e" "$" "$"
+## 
+## [[3]]
+## [1] "^" "a" "b" "a" "d" "i" "a" "$" "$"
+## 
+## [[4]]
+##  [1] "^"  "a"  "b"  "a"  "d"  "i"  "a^" "n"  "i"  "a"  "$"  "$" 
+## 
+## [[5]]
+##  [1] "^" "a" "b" "a" "e" "t" "e" "t" "u" "b" "a" "$" "$"
+## 
+## [[6]]
+## [1] "^"  "a"  "b"  "a"  "e"  "t"  "e´" "$"  "$"</code></pre>
+<p>Now the MC:</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/markovchain/man/markovchainFit.html">createSequenceMatrix</a></span><span class="op">(</span><span class="va">wordlist</span><span class="op">)</span></code></pre></div>
+<pre><code>##     $ ^  a a^ a~ a´ b c, d e e´ i n o r t u x
+## $  11 0  0  0  0  0 0  0 0 0  0 0 0 0 0 0 0 0
+## ^   0 0 11  0  0  0 0  0 0 0  0 0 0 0 0 0 0 0
+## a   4 0  1  0  0  0 9  1 3 2  0 2 0 0 3 1 0 0
+## a^  0 0  0  0  0  0 0  0 0 0  0 0 1 0 0 0 0 0
+## a~  0 0  0  0  0  0 0  0 0 0  0 0 0 2 0 0 0 0
+## a´  1 0  0  0  0  0 0  0 0 0  0 0 0 0 0 0 0 0
+## b   0 0 10  0  0  0 0  0 0 0  0 0 0 0 0 0 0 0
+## c,  0 0  0  0  1  0 0  0 0 0  0 0 0 0 0 0 0 0
+## d   0 0  0  0  0  0 0  0 0 1  0 2 0 0 0 0 0 0
+## e   1 0  0  0  0  0 0  0 0 0  0 0 0 0 0 3 0 0
+## e´  2 0  0  0  0  0 0  0 0 0  0 0 0 0 0 0 0 0
+## i   0 0  3  1  0  1 0  0 0 0  0 0 0 0 0 0 0 1
+## n   0 0  0  0  0  0 0  0 0 0  0 1 0 0 0 0 0 0
+## o   3 0  0  0  0  0 0  0 0 0  0 0 0 0 0 0 0 0
+## r   0 0  1  0  1  0 0  0 0 0  1 0 0 0 0 0 0 0
+## t   0 0  0  0  0  0 0  0 0 1  1 1 0 0 0 0 1 0
+## u   0 0  0  0  0  0 1  0 0 0  0 0 0 0 0 0 0 0
+## x   0 0  0  0  0  0 0  0 0 0  0 0 0 1 0 0 0 0</code></pre>
+<p>Remember the words were:</p>
+<ul>
+<li>Aarão</li>
+<li>Abade</li>
+<li>Abadia</li>
+<li>Abadiânia</li>
+<li>Abaetetuba</li>
+<li>Abaeté</li>
+<li>Abaiara</li>
+<li>Abaixo</li>
+<li>Abaré</li>
+<li>Abatiá</li>
+<li>ação</li>
+</ul>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Intro</a></div>
+<div class="next"><a href="references.html">References</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#scratch"><span class="header-section-number">1</span> Scratch</a></li>
+<li><a class="nav-link" href="#markovchain-package"><span class="header-section-number">1.1</span> markovchain package</a></li>
+<li>
+<a class="nav-link" href="#a-mc-for-brazilian-portuguese"><span class="header-section-number">1.2</span> A MC for Brazilian Portuguese</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#read-and-prepare-words"><span class="header-section-number">1.2.1</span> Read and prepare words</a></li>
+<li><a class="nav-link" href="#locale"><span class="header-section-number">1.2.2</span> Locale</a></li>
+<li><a class="nav-link" href="#preprocessing-with-awk"><span class="header-section-number">1.2.3</span> Preprocessing with awk</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/fnaufel/markovchains/blob/master/scratch.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/fnaufel/markovchains/edit/master/scratch.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Markov chains</strong>" was written by Fernando Náufel. It was last built on 16/04/2022.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

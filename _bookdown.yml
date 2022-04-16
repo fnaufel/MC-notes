@@ -1,0 +1,10 @@
+new_session: no
+delete_merged_file: true
+output_dir: 'docs'
+before_chapter_script: 'before_chapter.R'
+
+rmd_files: [
+  'index.Rmd',
+  'brazilian.Rmd',
+  'refs.Rmd'
+]

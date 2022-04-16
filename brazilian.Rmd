@@ -1,0 +1,218 @@
+---
+knit: "bookdown::render_book"
+---
+
+# A MC for Brazilian Portuguese
+
+## Description
+
+???
+
+
+## Read the frequency list
+
+* There are many corpora of Portuguese texts online, e.g., http://www.nilc.icmc.usp.br/nilc/tools/corpora.htm.
+
+* We will use the frequency list on 
+http://www.nilc.icmc.usp.br/nilc/download/frequencia.zip
+
+* We downloaded the file. Now we read it into a tibble:
+
+    ```{r}
+    fl <- read_csv('./data/nilc-frequencia.csv') %>% 
+      transmute(
+        palavra = Palavra,
+        freq = Frequencia
+      )
+    ```
+
+* Here is its structure:
+
+    ```{r}
+    fl %>% glimpse()
+    ```
+
+* We will use only the `n_words` most frequent words:
+
+    ```{r}
+    n_words <- 3e4
+    ```
+
+* We also discard one-letter words. 
+
+    ```{r}
+    fl <- fl %>% 
+      slice_max(
+        order_by = freq,
+        n = n_words
+      ) %>% 
+      filter(
+        nchar(palavra) > 1
+      )
+    ```
+
+* The tibble now:
+
+    ```{r}
+    fl %>% glimpse()
+    ```
+
+* Here is the summary of the frequencies:
+
+    ```{r}
+    fl$freq %>% summary()
+    ```
+
+* Here is a sample of the words, in order of decreasing frequency:
+
+    ```{r}
+    sample_size <- 100
+    fl %>% 
+      slice_sample(n = sample_size) %>% 
+      arrange(desc(freq)) %>% 
+      pull(palavra) %>%
+      paste0(collapse = '\n') %>%
+      cat()
+    ```
+
+* We write all the words to a file, which will be processed so the list can be handled by the `markovchain` functions:
+
+    ```{r}
+    fl %>% 
+      pull(palavra) %>% 
+      write_lines(
+        './data/nilc-words.txt',
+      )
+    ```
+
+
+## Process the list
+
+* We want to define the `wordlist` variable, which will be an R list of character vectors.
+
+* Each vector will contain the characters of a word, with an added '^' at the beginning and two added '$'s at the end.
+
+* But because the `markovchain` package gets confused by state names containing accented characters, first we will preprocess the words, converting accented characters to pairs of characters:
+
+  * 'á' becomes 'a´'
+  * 'ç' becomes 'c,'
+  * and so on
+
+* The following awk code will read the dictionary and produce an R script to define the variable `wordlist`:
+
+    ```{awk, engine.opts = './data/nilc-words.txt', code = readLines('./data/process.awk'), cache = TRUE}
+    
+    ```
+
+* This will execute the R script, defining the `wordlist` variable:
+
+    ```{r cache=TRUE}
+    source('wordlist.R')
+    ```
+
+* Here are the first elements of the `wordlist`:
+
+    ```{r}
+    head(wordlist, 10)
+    ```
+
+## Fit the chain
+
+* This takes some time. It took about $7$ minutes on my machine.
+
+    ```{r cache=TRUE}
+    fit <- markovchainFit(
+      wordlist,
+      name = 'nilc-freq',
+      confint = FALSE
+    )
+    ```
+
+    ```{r}
+    mc <- fit$estimate
+    summary(mc)
+    show(mc)
+    ```
+
+
+## Answer some questions
+
+### 'ç' anomalies
+
+```{r}
+cedilla_row <- mc['c,']
+cedilla_row[cedilla_row > 0]
+```
+
+```{r}
+fl %>% 
+  filter(endsWith(palavra, 'ç'))
+```
+
+
+### '-' anomalies
+
+```{r}
+hyphen_row <- mc['-']
+hyphen_row[hyphen_row > 0]
+```
+
+```{r}
+fl %>% 
+  filter(endsWith(palavra, '-'))
+```
+
+
+### Letters that begin words
+
+```{r}
+first_letter <- mc['^']
+first_letter[first_letter > 0]
+```
+
+
+### Letters that end words
+
+```{r}
+last_letter <- mc[, '$']
+last_letter <- last_letter[last_letter > 0]
+last_letter
+```
+
+```{r}
+consonants <- 
+  letters %>% 
+  setdiff(c('a', 'e', 'i', 'o', 'u'))
+
+last_consonants <- 
+  names(last_letter) %>% 
+  intersect(consonants)
+
+last_letter[consonants]
+```
+
+```{r}
+not_end_consonants <- 
+  names(last_letter[consonants]) %>%
+  setdiff(c('l', 'm', 'n', 'r', 's', 'x', 'z'))
+
+not_end_consonants
+
+fl %>% 
+  filter(
+    str_detect(
+      palavra, 
+      regex(
+        paste0(not_end_consonants, '$'),
+        ignore_case = TRUE
+      )
+    )
+  )
+```
+
+
+### Consecutive vowels
+
+
+### Consecutive consonants
+

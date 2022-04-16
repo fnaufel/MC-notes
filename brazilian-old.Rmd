@@ -1,0 +1,69 @@
+---
+knit: "bookdown::render_book"
+---
+
+# A MC for Brazilian Portuguese
+
+## Description
+
+???
+
+
+## Read the dictionary
+
+* We want to define the `wordlist` variable, which will be a list of character vectors.
+
+* Each vector will contain the characters of a word, with added '^' at the beginning and added double '$' at the end.
+
+* But because the `markovchain` package gets confused by state names containing accented characters, first we will preprocess the dictionary, converting accented characters to pairs of characters:
+
+  * 'á' becomes 'a´'
+  * 'ç' becomes 'c,'
+  * and so on
+
+* The following awk code will read the dictionary and produce an R script to define the variable `wordlist`:
+
+    ```{awk, engine.opts = './data/brazilian', code = readLines('./data/process.awk'), cache = TRUE}
+    
+    ```
+
+* This will execute the R script, defining the `wordlist` variable:
+
+    ```{r cache = TRUE}
+    source('wordlist.R')
+    ```
+
+* Here are the first elements of the `wordlist`:
+
+    ```{r}
+    head(wordlist, 20)
+    ```
+
+## Fit the chain
+
+* This takes some time. It took about $??$ minutes on my machine. (start: 17:28)
+
+    ```{r cache = TRUE}
+    fit <- markovchainFit(
+      wordlist,
+      name = 'Brazilian dictionary',
+      confint = FALSE
+    )
+    
+    fit
+    ```
+
+
+## Answer some questions
+
+### Letters that begin words
+
+
+### Letters that end words
+
+
+### Consecutive vowels
+
+
+### Consecutive consonants
+

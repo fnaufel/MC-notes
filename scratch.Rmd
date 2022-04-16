@@ -1,0 +1,169 @@
+---
+knit: "bookdown::render_book"
+---
+
+# Scratch {#scratch}
+
+## `markovchain` package
+
+* URL: https://cran.r-project.org/web/packages/markovchain/index.html
+
+* https://spedygiorgio.github.io/markovchain/
+
+* Articles:
+
+  * [Introduction (pdf)](https://cran.r-project.org/web/packages/markovchain/vignettes/an_introduction_to_markovchain_package.pdf)
+  
+  * [GSOC additions (pdf)](https://cran.r-project.org/web/packages/markovchain/vignettes/gsoc_2017_additions.pdf)
+  
+  * [Higher order MC (pdf) ](https://cran.r-project.org/web/packages/markovchain/vignettes/higher_order_markov_chains.pdf)
+  
+```{r}
+library(markovchain)
+```
+
+## A MC for Brazilian Portuguese
+
+### Read and prepare words
+
+```{r}
+words <- read_lines('/usr/share/dict/brazilian') %>% 
+  str_to_lower('pt-br')
+```
+
+A data frame, for easy search:
+
+```{r}
+df <- tibble(word = words)
+```
+
+Characters that will be used to mark beginning and end are safe:
+
+```{r}
+df %>% 
+  filter(
+    str_detect(word, '\\^') ||
+    str_detect(word, '\\$')
+  )
+```
+
+A list of character vectors, with added '^' at the beginning and added double '$' at the end of each:
+
+```{r}
+words_to_vectors <- function(alist) (
+  paste0('^', alist, '$$') %>% 
+  strsplit('', fixed = TRUE)
+)
+
+chars <- words %>% words_to_vectors()
+```
+
+For a handful of words:
+
+```{r}
+some_words <- chars[sample(1:length(chars), 10)]
+fit <- markovchainFit(some_words)
+```
+
+```{r}
+some_words %>% 
+  map_chr(~paste0(., collapse = '')) %>% 
+  sort()
+```
+
+```{r}
+fit$estimate
+```
+
+```{r}
+createSequenceMatrix(some_words, toRowProbs = FALSE)
+```
+
+::: {.rmdcaution latex=1}
+
+It seems accented characters wreak havoc with estimation. See below.
+
+I could
+
+* Code accented characters with two characters: e.g., 'u`'.
+
+* Look into locale configurations.
+
+:::
+
+```{r}
+sequences <- list(x = c("a", "b", "a"), y = c("b", "a", "b", "a", "c"))
+sequences
+createSequenceMatrix(sequences)
+```
+
+```{r}
+sequences <- list(x = c("á", "b", "á"), y = c("b", "á", "b", "á", "c"))
+sequences
+createSequenceMatrix(sequences)
+```
+
+```{r}
+sequences <- list(x = c("a'", "b", "a'"), y = c("b", "a'", "b", "a'", "c"))
+sequences
+createSequenceMatrix(sequences)
+```
+
+### Locale
+
+```{r}
+sessioninfo::platform_info()
+```
+
+```{r}
+Sys.getlocale()
+```
+
+::: {.rmdnote latex=1}
+
+Changing the locale did not work.
+
+Decided to preprocess the file with awk.
+
+:::
+
+
+### Preprocessing with awk
+
+This will read the dictionary and produce an R script to build a list:
+
+```{awk, engine.opts = './data/sample', code = readLines('./data/process.awk')}
+
+```
+
+This will source the R script:
+
+```{r}
+source('wordlist.R')
+```
+
+Here are the first elements of the `wordlist`:
+
+```{r}
+head(wordlist)
+```
+
+Now the MC:
+
+```{r}
+createSequenceMatrix(wordlist)
+```
+
+Remember the words were:
+
+* Aarão
+* Abade
+* Abadia
+* Abadiânia
+* Abaetetuba
+* Abaeté
+* Abaiara
+* Abaixo
+* Abaré
+* Abatiá
+* ação

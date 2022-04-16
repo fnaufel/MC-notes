@@ -1,0 +1,48 @@
+--- 
+# See https://github.com/fnaufel/fnaufelRmd for more information.
+
+knit: "bookdown::render_book"
+
+title: "Markov chains"
+description: "Notes about Markov chains"
+author: "Fernando Náufel"
+date: "`r format(Sys.Date(), '%d/%m/%Y')`"
+lang: 'en'
+
+# cover-image: images/?????
+
+documentclass: "report"
+classoption: '11pt'
+geometry: 'margin=1in'
+bibliography: []
+link-citations: yes
+
+# Bibliography style: 
+# choose one and delete the other:
+
+# For Chicago in English
+csl: |
+  `r if(knitr::is_html_output())
+   'html_files/chicago-fullnote-bibliography.csl' else
+   'pdf_files/chicago-author-date.csl'`
+
+---
+
+# Intro {-}
+
+
+## The `markovchain` package {-}
+
+* URL: https://cran.r-project.org/web/packages/markovchain/index.html
+
+* https://spedygiorgio.github.io/markovchain/
+
+* Articles:
+
+  * [Introduction (pdf)](https://cran.r-project.org/web/packages/markovchain/vignettes/an_introduction_to_markovchain_package.pdf)
+  
+  * [GSOC additions (pdf)](https://cran.r-project.org/web/packages/markovchain/vignettes/gsoc_2017_additions.pdf)
+  
+  * [Higher order MC (pdf) ](https://cran.r-project.org/web/packages/markovchain/vignettes/higher_order_markov_chains.pdf)
+
+

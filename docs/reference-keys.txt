@@ -1,0 +1,12 @@
+a-mc-for-brazilian-portuguese
+description
+read-the-frequency-list
+process-the-list
+fit-the-chain
+answer-some-questions
+ç-anomalies
+anomalies
+letters-that-begin-words
+letters-that-end-words
+consecutive-vowels
+consecutive-consonants
